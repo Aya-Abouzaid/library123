@@ -12,7 +12,6 @@ class Reader extends Model
         'name',
         'email',
         'password',
-        // 'cat_id',
     ];
 
     protected $hidden = [

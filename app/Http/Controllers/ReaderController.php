@@ -16,7 +16,6 @@ class ReaderController extends Controller
             'name' => request()->name,
             'email' => request()->email,
             'password' => Hash::make(request()->password),
-            'cat_id' => request()->cat_id
         ]);
         return $reader;
     }
