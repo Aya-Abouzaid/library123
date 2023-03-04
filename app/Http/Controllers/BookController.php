@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
+    public function addBooks()
+    {
+        return Book::create([
+            'title' => request()->title,
+            'production_year' => request()->production_year,
+            'price' => request()->price,
+            'category' => request()->category,
+            'investigator' => request()->investigator,
+            'writer' => request()->writer,
+            'publisher_id' => request()->publisher_id,
+
+        ]);
+    }
     public function getBooks()
     {
         $books = DB::table('books as b')->join('publishers as p', 'p.id', '=', 'b.publisher_id')->select('title', 'name', 'price', 'place', 'category', 'production_year')->get();
@@ -29,13 +42,13 @@ class BookController extends Controller
     public function edit($id)
     {
 
-        return $editProduct = Book::find($id);
+        return $editBook = Book::find($id);
     }
 
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        $product = Book::find($id);
-        $product->update([
+        $book = Book::find($id);
+        $book->update([
             'title' => request()->title,
             'production_year' => request()->production_year,
             'price' => request()->price,
@@ -44,7 +57,7 @@ class BookController extends Controller
             'writer' => request()->writer,
             'publisher_id' => request()->publisher_id
         ]);
-        return $product;
+        return $book;
     }
 
 
@@ -72,5 +85,11 @@ class BookController extends Controller
     {
         $search = DB::table('books as b')->join('publishers as p', 'p.id', '=', 'b.publisher_id')->select('title', 'name', 'price', 'place', 'category', 'production_year')->where('title', 'like', '%' . $title . '%')->get();
         return $search;
+    }
+    public function destroy($bookId)
+    {
+        $book = Book::find($bookId);
+
+        return $book->delete();
     }
 }

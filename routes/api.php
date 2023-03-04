@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\ReaderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,12 +26,25 @@ Route::post("/register", [ReaderController::class, 'register']);
 Route::post("/login", [ReaderController::class, 'login']);
 
 
-// Books ///
+// Books //
+Route::post('/books', [BookController::class, 'addBooks']);
+Route::delete('/books/{book}', [BookController::class, 'destroy']);
+Route::get('/books/{book}/edit', [BookController::class, 'edit']);
+Route::post('/books/{book}', [BookController::class, 'update']);
+
+
+//publishers //
+Route::post('/books', [PublisherController::class, 'addPublisher']);
+Route::delete('/books/{book}', [PublisherController::class, 'destroy']);
+Route::get('/books/{book}/edit', [PublisherController::class, 'edit']);
+Route::post('/books/{book}', [PublisherController::class, 'update']);
+
+
+
+
 Route::get('/books', [BookController::class, 'getBooks']);
 Route::get('/favorites/{favorite}', [BookController::class, 'getFavoriteBooks']);
 Route::get('/books/{book}', [BookController::class, 'getBookById']);
-Route::get('/books/{book}/edit', [BookController::class, 'edit']);
-Route::post('/books/{book}', [BookController::class, 'update']);
 Route::get('/categories', [BookController::class, 'getCategories']);
 Route::get('/categories/{category}', [BookController::class, 'getCategoryById']);
 Route::get('/investigators', [BookController::class, 'getInvestigators']);
