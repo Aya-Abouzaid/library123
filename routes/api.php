@@ -25,7 +25,7 @@ Route::post("/register", [ReaderController::class, 'register']);
 Route::post("/login", [ReaderController::class, 'login']);
 
 
-// Books //
+// Books ///
 Route::get('/books', [BookController::class, 'getBooks']);
 Route::get('/favorites/{favorite}', [BookController::class, 'getFavoriteBooks']);
 Route::get('/books/{book}', [BookController::class, 'getBookById']);
