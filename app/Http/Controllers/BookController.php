@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Favorites;
 use App\Models\Reader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,13 @@ class BookController extends Controller
         // SELECT * from books JOIN favorites on books.id = favorites.book_id JOIN publishers ON books.publisher_id = publishers.id where favorites.reader_id = 1;
         $favorites = DB::table('books')->join('favorites', 'books.id', '=', 'favorites.book_id')->join('publishers', 'publishers.id', '=', 'books.publisher_id')->select('title', 'name', 'price', 'place', 'category', 'production_year')->where('favorites.reader_id', $userId)->get();
         return $favorites;
+    }
+    public function insertFavorites()
+    {
+        return Favorites::create([
+            'reader_id' => request()->reader_id,
+            'book_id' => request()->book_id
+        ]);
     }
     public function getBookById($bookId)
     {
